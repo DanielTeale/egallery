@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  artist: one
+  date_created: 2018-10-18
+  genre: MyString
+  copyright: MyString
+
+two:
+  artist: two
+  date_created: 2018-10-18
+  genre: MyString
+  copyright: MyString
