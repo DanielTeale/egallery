@@ -1,0 +1,6 @@
+<h1>E-Gallery</h1>
+<h2>Recent Additions</h2>
+<% @pictures.each do |picture|%>
+  <%= image_tag picture.image_url(:thumb) if picture.image? %>
+<% end%>
+<%= link_to 'Pictures', pictures_path %>

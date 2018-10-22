@@ -10,42 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_003232) do
+ActiveRecord::Schema.define(version: 2018_10_22_045828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "artists", force: :cascade do |t|
+  create_table "pictures", force: :cascade do |t|
     t.string "name"
-    t.string "password"
-    t.string "email"
+    t.text "blurb"
+    t.text "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "biography"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_pictures_on_user_id"
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.bigint "artist_id"
-    t.bigint "painting_id"
-    t.text "content"
-    t.integer "rating"
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["artist_id"], name: "index_comments_on_artist_id"
-    t.index ["painting_id"], name: "index_comments_on_painting_id"
+    t.string "name"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "paintings", force: :cascade do |t|
-    t.bigint "artist_id"
-    t.date "date_created"
-    t.string "genre"
-    t.string "copyright"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["artist_id"], name: "index_paintings_on_artist_id"
-  end
-
-  add_foreign_key "comments", "artists"
-  add_foreign_key "comments", "paintings"
-  add_foreign_key "paintings", "artists"
+  add_foreign_key "pictures", "users"
 end
