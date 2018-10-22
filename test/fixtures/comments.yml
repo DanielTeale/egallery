@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  artist: one
-  painting: one
+  user: one
   content: MyText
-  rating: 1
+  user_comment_id: 1
+  user_comment_type: MyString
 
 two:
-  artist: two
-  painting: two
+  user: two
   content: MyText
-  rating: 1
+  user_comment_id: 1
+  user_comment_type: MyString
