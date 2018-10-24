@@ -3,4 +3,6 @@
 <% @pictures.each do |picture|%>
   <%= image_tag picture.image_url(:thumb) if picture.image? %>
 <% end%>
-<%= link_to 'Pictures', pictures_path %>
+<div>
+  <%= link_to 'Pictures', pictures_path %>
+</div>

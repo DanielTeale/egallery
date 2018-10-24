@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   resources :pictures do
     resources :comments
   end
-  devise_for :users
-  resources :users do
+  devise_for :users, path: '', path_names: {sign_in: 'login', sign_out: 'logout', sign_up: 'register'}
+  resources :users, :only =>[:show] do
     resources :comments
   end
   root 'pages#home'
