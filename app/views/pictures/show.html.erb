@@ -1,4 +1,8 @@
 <p>
+  <%= image_tag @picture.image_url if @picture.image?%>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @picture.name %>
 </p>
@@ -8,13 +12,22 @@
   <%= @picture.blurb %>
 </p>
 
-<p>
-  <strong>Image:</strong>
-  <%= image_tag @picture.image_url if @picture.image?%>
-</p>
-<%= form_with(model: comment, local: true) do |form| %>
+<div>
+  <h2><strong>Comments:</strong></h2>
+  <% @comments.each do |comment| %>
+    <p>
+    <div>
+      <%= comment.content %>
+    </div>
+    <div>
+      By <%= comment.user.name %> created at: <%= comment.created_at %>
+    </div>
+    <% end %>
+    </p>
+</div>
+<%= form_with(model: @comment, url: picture_comments_path(@picture), local: true) do |form| %>
   <div class='field'>
-    <%= form.label :comment %>
+    <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
 
