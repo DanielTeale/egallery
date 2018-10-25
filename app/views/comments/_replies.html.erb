@@ -1,0 +1,8 @@
+<div class='nest'>
+  <% com.reply_ids.each do |id| %>
+    <% reply = Comment.find(id)  %>
+    <div><%= reply.content %></div>
+    <div>By <%= link_to reply.user.name, user_path(reply.user.id) %> created at <%= reply.created_at %></div>
+    <div><%= render 'comments/replies', com: reply unless reply.reply_ids.empty?  %></div>
+  <% end %>
+</div>

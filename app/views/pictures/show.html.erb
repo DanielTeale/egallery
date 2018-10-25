@@ -17,29 +17,4 @@
   <strong>Blurb:</strong>
   <%= @picture.blurb %>
 </p>
-
-<div>
-  <h2><strong>Comments:</strong></h2>
-  <% @comments.each do |comment| %>
-    <p>
-    <div>
-      <%= comment.content %>
-    </div>
-    <div>
-      By <%= link_to comment.user.name, user_path(comment.user.id) %> created at: <%= comment.created_at %>
-    </div>
-    <% end %>
-    </p>
-</div>
-<%= form_with(model: @comment, url: picture_comments_path(@picture), local: true) do |form| %>
-  <div class='field'>
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end%>
-<%= link_to 'Edit', edit_picture_path(@picture) %> |
-<%= link_to 'Back', pictures_path %>
+<%= render 'comments/comment', comments: @comments, comment: @comment, url_path: picture_comments_path(@picture) %>

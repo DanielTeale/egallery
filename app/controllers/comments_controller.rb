@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    @comment = Comment.new(:parent_id: params[:parent_id])
   end
 
   # GET /comments/1/edit
@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @user_comment, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @user_comment }
       else
-        format.html { render :new }
+        format.html { render :show}
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -59,11 +59,12 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:content)
+      params.require(:comment).permit(:parent_id, :content)
     end
 
     def find_user_comment
       @user_comment = Picture.find(params[:picture_id]) if params[:picture_id]
       @user_comment = User.find(params[:user_id]) if params[:user_id]
+      @user_comment = Comment.find(params[:parent_id]) if params[:parent_id]
     end
 end

@@ -1,0 +1,30 @@
+<div>
+  <div>
+  <h2><strong>Comments:</strong></h2>
+  <% @comments.each do |com| %>
+    <% unless com.parent_id?%>
+    <div class="nest">
+        <div>
+          <%= com.content%>
+        </div>
+        <div>
+          By <%= link_to com.user.name, user_path(com.user.id) %> created at: <%= com.created_at %>
+        </div>
+        <div><%= render 'comments/replyform', comment: com, url_path: url_path %></div>
+        <div><%= render 'comments/replies', com: com unless com.reply_ids.empty?%></div>  
+      <% end %>
+      </div>
+    <% end %>
+    </div>
+<%= form_with(model: comment, url: url_path, local: true) do |form| %>
+  <div class='field'>
+    <%= form.hidden_field :parent_id, comment.parent.id if comment.parent_id? %>
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end%>
+</div>
